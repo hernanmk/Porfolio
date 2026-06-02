@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hernán Kruk — Senior UX Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f9f8f5;
+  --bg2:#f2f0eb;
+  --text:#1c1b18;
+  --text-mid:#6b6860;
+  --text-dim:#a09e97;
+  --border:#e2e0d8;
+  --accent:#1a3a5c;
+  --accent-bg:#deeaf7;
+  --accent-light:#eaf2fb;
+  --accent-text:#1a3a5c;
+  --font-head:'Instrument Serif',Georgia,serif;
+  --font-body:'Instrument Sans',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+
+nav{position:sticky;top:0;z-index:100;background:rgba(249,248,245,0.93);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:0 2.5rem}
+.nav-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px}
+.nav-logo{font-family:var(--font-body);font-weight:500;font-size:15px;color:var(--text);text-decoration:none}
+.nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
+.nav-links a{font-size:13px;color:var(--text-dim);text-decoration:none;transition:color 0.2s;cursor:pointer}
+.nav-links a:hover{color:var(--text)}
+.nav-right{display:flex;align-items:center;gap:12px}
+.lang-toggle{display:flex;align-items:center;background:var(--bg2);border:1px solid var(--border);border-radius:100px;padding:3px;gap:2px}
+.lang-btn{font-size:12px;padding:4px 10px;border-radius:100px;cursor:pointer;transition:all 0.18s;color:var(--text-dim);font-weight:400;border:none;background:transparent;font-family:var(--font-body)}
+.lang-btn.active{background:#fff;color:var(--text);font-weight:500;box-shadow:0 1px 3px rgba(0,0,0,0.08)}
+.nav-cta{font-size:13px;background:var(--accent);color:#fff;padding:7px 16px;border-radius:100px;text-decoration:none;transition:opacity 0.2s;cursor:pointer}
+.nav-cta:hover{opacity:0.85}
+
+main{max-width:960px;margin:0 auto;padding:0 2.5rem}
+
+.hero{display:grid;grid-template-columns:1fr 300px;gap:3.5rem;align-items:center;padding:5.5rem 0 5rem;border-bottom:1px solid var(--border)}
+.hero-eyebrow{display:flex;align-items:center;gap:8px;margin-bottom:2rem}
+.hero-pill{font-size:11px;letter-spacing:0.08em;text-transform:uppercase;background:var(--accent-bg);color:var(--accent-text);padding:4px 12px;border-radius:100px;font-weight:500}
+.hero-loc{font-size:12px;color:var(--text-dim)}
+.hero-title{font-family:var(--font-head);font-size:clamp(3.2rem,7vw,5.5rem);line-height:0.97;letter-spacing:-0.02em;color:var(--text);margin-bottom:1.75rem}
+.hero-title em{font-style:italic;color:var(--text-mid)}
+.hero-sub{font-size:16px;color:var(--text-mid);line-height:1.75;max-width:400px;margin-bottom:2rem}
+.hero-actions{display:flex;align-items:center;gap:1.25rem}
+.btn-primary{font-size:14px;background:var(--accent);color:#fff;padding:10px 22px;border-radius:100px;text-decoration:none;transition:opacity 0.2s;display:inline-block;cursor:pointer}
+.btn-primary:hover{opacity:0.85}
+.btn-secondary{font-size:14px;color:var(--text-mid);text-decoration:none;border-bottom:1px solid var(--border);padding-bottom:1px;transition:color 0.2s;cursor:pointer}
+.btn-secondary:hover{color:var(--text)}
+
+.photo-wrap{position:relative}
+.photo-frame{width:100%;aspect-ratio:3/4;background:var(--bg2);border-radius:18px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.photo-placeholder{display:flex;flex-direction:column;align-items:center;gap:10px}
+.photo-circle{width:56px;height:56px;border-radius:50%;background:var(--border)}
+.photo-hint{font-size:13px;color:var(--text-dim)}
+.photo-badge{position:absolute;top:14px;right:14px;background:#fff;border:1px solid var(--border);border-radius:100px;padding:6px 14px;font-size:12px;color:var(--text);font-weight:500;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+
+.stats-band{background:var(--accent);border-radius:14px;display:grid;grid-template-columns:repeat(3,1fr);padding:2.5rem 3rem;margin:4rem 0 0}
+.stat-item{text-align:center;position:relative}
+.stat-item+.stat-item::before{content:'';position:absolute;left:0;top:20%;height:60%;width:1px;background:rgba(255,255,255,0.15)}
+.stat-num{font-family:var(--font-head);font-size:2.6rem;line-height:1;color:#fff;letter-spacing:-0.02em;margin-bottom:4px}
+.stat-num em{font-style:italic}
+.stat-label{font-size:11px;color:rgba(255,255,255,0.5);letter-spacing:0.06em;text-transform:uppercase}
+
+section{padding:5rem 0;border-bottom:1px solid var(--border)}
+section:last-child{border-bottom:none}
+.section-label{font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-dim);margin-bottom:3.5rem;display:flex;align-items:center;gap:10px}
+.section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+
+.cases-list{display:flex;flex-direction:column}
+.case{display:grid;grid-template-columns:36px 1fr auto;gap:2rem;align-items:start;padding:2.5rem 0;border-bottom:1px solid var(--border);text-decoration:none;color:inherit;cursor:pointer;transition:all 0.22s}
+.case:first-child{padding-top:0}
+.case:last-child{border-bottom:none;padding-bottom:0}
+.case-num{font-family:var(--font-head);font-size:1rem;color:var(--text-dim);font-style:italic;padding-top:4px}
+.case-title{font-family:var(--font-head);font-size:clamp(1.5rem,3vw,2.2rem);line-height:1.05;letter-spacing:-0.02em;margin-bottom:0.5rem;color:var(--text);transition:color 0.2s}
+.case:hover .case-title{color:var(--accent)}
+.case-desc{font-size:14px;color:var(--text-mid);line-height:1.65;max-width:500px}
+.case-tags{display:flex;gap:6px;margin-top:1rem;flex-wrap:wrap}
+.tag{font-size:11px;padding:3px 10px;border:1px solid var(--border);border-radius:100px;color:var(--text-dim);letter-spacing:0.04em}
+.tag-accent{background:var(--accent-bg);border-color:transparent;color:var(--accent-text)}
+.case-arrow{font-size:1.3rem;color:var(--text-dim);padding-top:4px;transition:all 0.22s}
+.case:hover .case-arrow{transform:translate(3px,-3px);color:var(--accent)}
+
+.about-wrap{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.about-text p{font-size:16px;color:var(--text-mid);line-height:1.8}
+.about-text p+p{margin-top:1.25rem}
+.about-text strong{color:var(--text);font-weight:500}
+.aside-block{margin-bottom:2.5rem}
+.aside-block:last-child{margin-bottom:0}
+.aside-title{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim);margin-bottom:1rem}
+.aside-list{list-style:none;display:flex;flex-direction:column;gap:7px}
+.aside-list li{font-size:14px;color:var(--text-mid);display:flex;justify-content:space-between}
+.aside-list li span{color:var(--text-dim);font-size:12px}
+
+.exp-list{display:flex;flex-direction:column}
+.exp-item{display:grid;grid-template-columns:160px 1fr;gap:2.5rem;padding:2rem 0;border-bottom:1px solid var(--border)}
+.exp-item:first-child{padding-top:0}
+.exp-item:last-child{border-bottom:none;padding-bottom:0}
+.exp-year{font-size:12px;color:var(--text-dim);padding-top:4px}
+.exp-role{font-size:15px;font-weight:500;color:var(--text);margin-bottom:2px}
+.exp-co{font-size:14px;color:var(--text-mid);margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.exp-badge{font-size:10px;background:var(--accent-bg);color:var(--accent-text);padding:2px 8px;border-radius:100px;font-weight:500}
+.exp-desc{font-size:13px;color:var(--text-dim);line-height:1.65}
+
+.contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+.contact-head{font-family:var(--font-head);font-size:clamp(2rem,4.5vw,3.5rem);line-height:1.05;letter-spacing:-0.02em;margin-bottom:1.25rem}
+.contact-head em{font-style:italic;color:var(--text-mid)}
+.contact-sub{font-size:15px;color:var(--text-mid);line-height:1.7}
+.contact-links{display:flex;flex-direction:column;gap:10px}
+.contact-link{display:flex;justify-content:space-between;align-items:center;padding:1.1rem 1.25rem;border:1px solid var(--border);border-radius:10px;text-decoration:none;color:var(--text);background:#fff;transition:all 0.2s}
+.contact-link:hover{border-color:var(--accent);background:var(--accent-light)}
+.contact-link-type{font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-dim);margin-bottom:3px}
+.contact-link-val{font-size:14px;color:var(--text-mid)}
+.contact-arrow{font-size:18px;color:var(--text-dim)}
+
+/* CASE STUDY PAGES */
+.case-page{display:none;padding:4rem 0}
+.case-back{font-size:13px;color:var(--text-dim);text-decoration:none;display:inline-flex;align-items:center;gap:6px;margin-bottom:3rem;transition:color 0.2s;cursor:pointer}
+.case-back:hover{color:var(--text)}
+.case-header{margin-bottom:4rem;padding-bottom:3rem;border-bottom:1px solid var(--border)}
+.case-header-meta{display:flex;gap:8px;margin-bottom:1.5rem;flex-wrap:wrap}
+.case-header-title{font-family:var(--font-head);font-size:clamp(2.5rem,6vw,4.5rem);line-height:1;letter-spacing:-0.02em;margin-bottom:1.5rem}
+.case-header-title em{font-style:italic;color:var(--text-mid)}
+.case-header-desc{font-size:18px;color:var(--text-mid);line-height:1.7;max-width:600px}
+.case-meta-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:3rem;padding-top:2.5rem;border-top:1px solid var(--border)}
+.case-meta-label{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim);margin-bottom:6px}
+.case-meta-val{font-size:15px;color:var(--text);font-weight:500}
+.case-hero-img{width:100%;aspect-ratio:16/8;background:var(--bg2);border-radius:14px;border:1px solid var(--border);margin-bottom:4rem;display:flex;align-items:center;justify-content:center}
+.case-hero-img span{font-size:13px;color:var(--text-dim)}
+.case-body{display:grid;grid-template-columns:1fr 220px;gap:4rem;align-items:start}
+.case-section{margin-bottom:3.5rem}
+.case-section:last-child{margin-bottom:0}
+.case-section h3{font-family:var(--font-head);font-size:1.6rem;letter-spacing:-0.01em;margin-bottom:1rem;color:var(--text)}
+.case-section p{font-size:15px;color:var(--text-mid);line-height:1.8;margin-bottom:1rem}
+.case-section p:last-child{margin-bottom:0}
+.case-img{width:100%;aspect-ratio:16/9;background:var(--bg2);border-radius:10px;border:1px solid var(--border);margin:1.5rem 0;display:flex;align-items:center;justify-content:center}
+.case-img span{font-size:12px;color:var(--text-dim)}
+.case-result{background:var(--accent-bg);border-radius:12px;padding:1.5rem;margin-top:1.5rem}
+.case-result-label{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent-text);margin-bottom:0.75rem;font-weight:500}
+.case-result-list{list-style:none;display:flex;flex-direction:column;gap:6px}
+.case-result-list li{font-size:14px;color:var(--accent-text);padding-left:14px;position:relative;line-height:1.5}
+.case-result-list li::before{content:'→';position:absolute;left:0;font-size:12px}
+.case-sidebar-block{margin-bottom:1.5rem;padding:1.25rem;background:#fff;border:1px solid var(--border);border-radius:10px}
+.case-sidebar-block:last-child{margin-bottom:0}
+.case-sidebar-label{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim);margin-bottom:0.75rem}
+.case-sidebar-list{list-style:none;display:flex;flex-direction:column;gap:6px}
+.case-sidebar-list li{font-size:13px;color:var(--text-mid);padding-left:12px;position:relative}
+.case-sidebar-list li::before{content:'—';position:absolute;left:0;color:var(--text-dim)}
+.case-next{margin-top:5rem;padding-top:3rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.case-next-label{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim)}
+.case-next-title{font-family:var(--font-head);font-size:1.5rem;letter-spacing:-0.01em;color:var(--text);margin-top:4px;cursor:pointer;transition:color 0.2s}
+.case-next-title:hover{color:var(--accent)}
+
+footer{border-top:1px solid var(--border);padding:1.75rem 2.5rem;display:flex;justify-content:space-between;align-items:center;max-width:960px;margin:0 auto}
+footer p{font-size:12px;color:var(--text-dim)}
+
+#home-page{display:block}
+.page{display:none}
+
+@media(max-width:768px){
+  nav{padding:0 1.25rem}
+  .nav-links{display:none}
+  .nav-right{gap:8px}
+  .nav-cta{font-size:12px;padding:6px 12px}
+  .lang-toggle{padding:2px}
+  .lang-btn{padding:3px 8px;font-size:11px}
+
+  main{padding:0 1.25rem}
+
+  .hero{grid-template-columns:1fr;gap:2rem;padding:3rem 0 2.5rem}
+  .hero-right{order:-1}
+  .photo-frame{aspect-ratio:4/3;border-radius:14px}
+  .photo-badge{font-size:11px;padding:5px 11px}
+  .hero-title{font-size:3.2rem;margin-bottom:1.25rem}
+  .hero-sub{font-size:15px;max-width:100%}
+  .hero-actions{flex-wrap:wrap;gap:1rem}
+
+  .stats-band{padding:1.75rem 1.25rem;border-radius:12px;margin:2.5rem 0 0}
+  .stat-num{font-size:2rem}
+  .stat-label{font-size:10px}
+
+  section{padding:3rem 0}
+
+  .case{grid-template-columns:28px 1fr auto;gap:1rem;padding:1.75rem 0}
+  .case-title{font-size:1.4rem}
+  .case-desc{font-size:13px}
+
+  .about-wrap{grid-template-columns:1fr;gap:2.5rem}
+  .about-text p{font-size:15px}
+
+  .exp-item{grid-template-columns:1fr;gap:0.5rem;padding:1.5rem 0}
+  .exp-year{padding-top:0}
+
+  .contact-wrap{grid-template-columns:1fr;gap:2rem}
+  .contact-head{font-size:2.2rem}
+
+  footer{padding:1.5rem 1.25rem;flex-direction:column;gap:4px;text-align:center}
+
+  .case-header-title{font-size:2.5rem}
+  .case-header-desc{font-size:15px}
+  .case-meta-grid{grid-template-columns:1fr;gap:1rem;margin-top:2rem;padding-top:1.75rem}
+  .case-body{grid-template-columns:1fr;gap:2rem}
+  .case-section h3{font-size:1.35rem}
+  .case-section p{font-size:14px}
+  .case-next{flex-direction:column;align-items:flex-start;gap:0.5rem}
+  .case-next-title{font-size:1.25rem}
+  .case-sidebar-block{margin-bottom:1rem}
+  .case-back{margin-bottom:2rem}
+}
+
+@media(max-width:420px){
+  .hero-title{font-size:2.8rem}
+  .stats-band{grid-template-columns:1fr;gap:1.25rem;padding:1.5rem}
+  .stat-item+.stat-item::before{display:none}
+  .stat-item{border-top:1px solid rgba(255,255,255,0.1);padding-top:1.25rem}
+  .stat-item:first-child{border-top:none;padding-top:0}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" onclick="showHome(event)">HK</a>
+    <ul class="nav-links">
+      <li><a onclick="showHome(event);setTimeout(()=>document.getElementById('work').scrollIntoView({behavior:'smooth'}),50)" data-en="Work" data-es="Trabajo">Work</a></li>
+      <li><a onclick="showHome(event);setTimeout(()=>document.getElementById('about').scrollIntoView({behavior:'smooth'}),50)" data-en="About" data-es="Sobre mí">About</a></li>
+      <li><a onclick="showHome(event);setTimeout(()=>document.getElementById('experience').scrollIntoView({behavior:'smooth'}),50)" data-en="Experience" data-es="Experiencia">Experience</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <button class="lang-btn active" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" onclick="setLang('es')">ES</button>
+      </div>
+      <a class="nav-cta" onclick="showHome(event);setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),50)" data-en="Get in touch" data-es="Contacto">Get in touch</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HOME PAGE -->
+<div id="home-page">
+<main>
+  <div class="hero">
+    <div>
+      <div class="hero-eyebrow">
+        <span class="hero-pill" data-en="Available for work" data-es="Disponible">Available for work</span>
+        <span class="hero-loc">Buenos Aires, Argentina</span>
+      </div>
+      <h1 class="hero-title">Hernán<br><em>Kruk</em></h1>
+      <p class="hero-sub" data-en="Senior UX Designer focused on making complex operational systems easier to use. Currently designing internal tools at Mercado Libre's Logistics team." data-es="Diseñador UX Senior enfocado en hacer que sistemas operativos complejos sean más fáciles de usar. Actualmente diseño herramientas internas en el equipo de Logística de Mercado Libre.">Senior UX Designer focused on making complex operational systems easier to use. Currently designing internal tools at Mercado Libre's Logistics team.</p>
+      <div class="hero-actions">
+        <a class="btn-primary" onclick="event.preventDefault();document.getElementById('work').scrollIntoView({behavior:'smooth'})" data-en="See my work" data-es="Ver proyectos">See my work</a>
+        <a class="btn-secondary" onclick="event.preventDefault();document.getElementById('contact').scrollIntoView({behavior:'smooth'})" data-en="Get in touch" data-es="Contacto">Get in touch</a>
+      </div>
+    </div>
+    <div class="photo-wrap">
+      <div class="photo-frame">
+        <div class="photo-placeholder">
+          <div class="photo-circle"></div>
+          <span class="photo-hint" data-en="Your photo here" data-es="Tu foto acá">Your photo here</span>
+        </div>
+      </div>
+      <div class="photo-badge">Hey, I'm Hernán 👋</div>
+    </div>
+  </div>
+
+  <div class="stats-band">
+    <div class="stat-item">
+      <div class="stat-num">10<em>+</em></div>
+      <div class="stat-label" data-en="Years in UX" data-es="Años en UX">Years in UX</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">7</div>
+      <div class="stat-label" data-en="Years at MeLi" data-es="Años en MeLi">Years at MeLi</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num"><em>E2E</em></div>
+      <div class="stat-label" data-en="Research to handoff" data-es="Discovery a entrega">Research to handoff</div>
+    </div>
+  </div>
+
+  <section id="work">
+    <p class="section-label" data-en="Selected work" data-es="Proyectos seleccionados">Selected work</p>
+    <div class="cases-list">
+      <a class="case" onclick="showCase(event,'case-dashboard')">
+        <span class="case-num">01</span>
+        <div>
+          <h2 class="case-title">Dashboard Tool</h2>
+          <p class="case-desc" data-en="Logistics supervisors had no real-time visibility into what happened to packages after receiving them. I designed a dashboard that replaced manual spreadsheets with a live, metric-driven view — reducing package loss by 8% in the first quarter." data-es="Los supervisores de logística no tenían visibilidad en tiempo real sobre qué pasaba con los paquetes después de recibirlos. Diseñé un dashboard que reemplazó las planillas manuales por una vista en vivo — reduciendo la pérdida de paquetes un 8% en el primer trimestre.">Logistics supervisors had no real-time visibility into what happened to packages after receiving them. I designed a dashboard that replaced manual spreadsheets with a live, metric-driven view — reducing package loss by 8% in the first quarter.</p>
+          <div class="case-tags">
+            <span class="tag tag-accent">Mercado Libre</span>
+            <span class="tag" data-en="Internal tooling" data-es="Herramienta interna">Internal tooling</span>
+            <span class="tag" data-en="Data visualization" data-es="Visualización de datos">Data visualization</span>
+            <span class="tag" data-en="3 months" data-es="3 meses">3 months</span>
+          </div>
+        </div>
+        <span class="case-arrow">↗</span>
+      </a>
+      <a class="case" onclick="showCase(event,'case-handshake')">
+        <span class="case-num">02</span>
+        <div>
+          <h2 class="case-title">Handshake</h2>
+          <p class="case-desc" data-en="Package handovers between operators were tracked on paper, creating accountability gaps when things went missing. I replaced the process with a mobile-first digital tool — adopted by over 1,000 operators with 70% positive adoption at rollout." data-es="Las transferencias de paquetes entre operadores se registraban en papel, generando problemas de responsabilidad cuando algo se perdía. Reemplacé el proceso con una herramienta mobile — adoptada por más de 1.000 operadores con un 70% de adopción positiva.">Package handovers between operators were tracked on paper, creating accountability gaps when things went missing. I replaced the process with a mobile-first digital tool — adopted by over 1,000 operators with 70% positive adoption at rollout.</p>
+          <div class="case-tags">
+            <span class="tag tag-accent">Mercado Libre</span>
+            <span class="tag" data-en="Mobile" data-es="Mobile">Mobile</span>
+            <span class="tag" data-en="Workflow design" data-es="Diseño de flujo">Workflow design</span>
+            <span class="tag" data-en="3 months" data-es="3 meses">3 months</span>
+          </div>
+        </div>
+        <span class="case-arrow">↗</span>
+      </a>
+      <a class="case" onclick="showCase(event,'case-monitor')">
+        <span class="case-num">03</span>
+        <div>
+          <h2 class="case-title">Monitor Last Mile</h2>
+          <p class="case-desc" data-en="Last Mile leaders were switching between 2–3 internal tools and spreadsheets simultaneously to manage operations. I consolidated that into a single live monitor, reducing operational oversight time by 30–40%." data-es="Los líderes de Last Mile alternaban entre 2 o 3 herramientas internas y planillas a la vez. Consolidé todo en un monitor unificado en tiempo real, reduciendo el tiempo de supervisión operativa entre un 30% y un 40%.">Last Mile leaders were switching between 2–3 internal tools and spreadsheets simultaneously to manage operations. I consolidated that into a single live monitor, reducing operational oversight time by 30–40%.</p>
+          <div class="case-tags">
+            <span class="tag tag-accent">Mercado Libre</span>
+            <span class="tag" data-en="Dashboard" data-es="Dashboard">Dashboard</span>
+            <span class="tag" data-en="Consolidation" data-es="Consolidación">Consolidation</span>
+          </div>
+        </div>
+        <span class="case-arrow">↗</span>
+      </a>
+      <a class="case" onclick="showCase(event,'case-fury')">
+        <span class="case-num">04</span>
+        <div>
+          <h2 class="case-title">Fury</h2>
+          <p class="case-desc" data-en="Mercado Libre's internal developer platform had years of accumulated UX debt — no dedicated design team, inconsistent patterns, no design system. I'm currently leading the UX restructuring: auditing flows, migrating to Andes, and improving navigation across the platform." data-es="La plataforma interna de desarrollo de Mercado Libre tenía años de deuda de UX acumulada — sin equipo de diseño dedicado, patrones inconsistentes, sin sistema de diseño. Estoy liderando la reestructuración de UX: relevando flujos, migrando a Andes y mejorando la navegación en toda la plataforma.">Mercado Libre's internal developer platform had years of accumulated UX debt — no dedicated design team, inconsistent patterns, no design system. I'm currently leading the UX restructuring: auditing flows, migrating to Andes, and improving navigation across the platform.</p>
+          <div class="case-tags">
+            <span class="tag tag-accent">Mercado Libre</span>
+            <span class="tag" data-en="Ongoing" data-es="En curso">Ongoing</span>
+            <span class="tag" data-en="Design systems" data-es="Sistema de diseño">Design systems</span>
+            <span class="tag" data-en="Developer tooling" data-es="Herramienta para devs">Developer tooling</span>
+          </div>
+        </div>
+        <span class="case-arrow">↗</span>
+      </a>
+    </div>
+  </section>
+
+  <section id="about">
+    <p class="section-label" data-en="About" data-es="Sobre mí">About</p>
+    <div class="about-wrap">
+      <div class="about-text">
+        <p data-en="I'm a Senior UX Designer with 7 years at Mercado Libre and over 10 years working in UX. I design internal tools for the logistics team — working end-to-end from user research and process mapping to high-fidelity UI and developer handoff." data-es="Soy Diseñador UX Senior con 7 años en Mercado Libre y más de 10 años en UX. Diseño herramientas internas para el equipo de logística — trabajando de punta a punta: investigación de usuarios, mapeo de procesos, UI en alta fidelidad y entrega a desarrollo.">I'm a Senior UX Designer with 7 years at Mercado Libre and over 10 years working in UX. I design internal tools for the logistics team — working end-to-end from user research and process mapping to high-fidelity UI and developer handoff.</p>
+        <p data-en="I collaborate closely with Product and Engineering — helping define MVP scope, weighing tradeoffs, and making sure user needs are part of the conversation from the start. I also mentor junior and semi-senior designers on the team." data-es="Trabajo de cerca con Producto e Ingeniería — ayudando a definir el alcance del MVP, evaluar trade-offs y asegurando que las necesidades del usuario estén presentes desde el inicio. También acompaño a diseñadores junior y semi-senior del equipo.">I collaborate closely with Product and Engineering — helping define MVP scope, weighing tradeoffs, and making sure user needs are part of the conversation from the start. I also mentor junior and semi-senior designers on the team.</p>
+        <p data-en="Lately I've been integrating AI tooling into my workflow — using Figma's MCP to automate spec generation and push files directly to GitHub, and using Claude to structure UX audits. It's made the documentation and handoff side of the work faster, which means more time for the actual design decisions." data-es="Últimamente integré herramientas de IA a mi flujo de trabajo — uso el MCP de Figma para automatizar la generación de specs y pasar archivos directamente a GitHub, y uso Claude para estructurar auditorías de UX. Hace más rápida la parte de documentación y entrega, lo que deja más tiempo para las decisiones de diseño.">Lately I've been integrating AI tooling into my workflow — using Figma's MCP to automate spec generation and push files directly to GitHub, and using Claude to structure UX audits. It's made the documentation and handoff side of the work faster, which means more time for the actual design decisions.</p>
+        <p data-en="Before MeLi, I designed for Lagash (Banco Nacional de Bolivia, Sancor Seguros) and led product design at Titular.com. I studied Multimedia and Interaction Design at UADE." data-es="Antes de MeLi, diseñé para Lagash (Banco Nacional de Bolivia, Sancor Seguros) y lideré el diseño de producto en Titular.com. Estudié Diseño Multimedial en UADE.">Before MeLi, I designed for <strong>Lagash</strong> and led product design at <strong>Titular.com</strong>. I studied Multimedia and Interaction Design at UADE.</p>
+      </div>
+      <div>
+        <div class="aside-block">
+          <p class="aside-title" data-en="Craft" data-es="Habilidades">Craft</p>
+          <ul class="aside-list">
+            <li data-en="User research" data-es="Investigación de usuarios">User research</li>
+            <li data-en="Interaction design" data-es="Diseño de interacción">Interaction design</li>
+            <li data-en="High-fidelity UI" data-es="UI en alta fidelidad">High-fidelity UI</li>
+            <li data-en="Usability testing" data-es="Testing de usabilidad">Usability testing</li>
+            <li data-en="Design systems" data-es="Sistemas de diseño">Design systems</li>
+            <li>Figma</li>
+          </ul>
+        </div>
+        <div class="aside-block">
+          <p class="aside-title" data-en="Education" data-es="Educación">Education</p>
+          <ul class="aside-list">
+            <li>Lic. Diseño Multimedial <span>UADE</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <p class="section-label" data-en="Experience" data-es="Experiencia">Experience</p>
+    <div class="exp-list">
+      <div class="exp-item">
+        <div class="exp-year">2018 – <span data-en="Present" data-es="Actualidad">Present</span></div>
+        <div>
+          <p class="exp-role" data-en="Senior UX Designer" data-es="Diseñador UX Senior">Senior UX Designer</p>
+          <p class="exp-co">Mercado Libre <span class="exp-badge" data-en="Current" data-es="Actual">Current</span></p>
+          <p class="exp-desc" data-en="Designing internal tools for the logistics network. End-to-end ownership: research, wireframes, high-fidelity UI, prototyping, and handoff. Close collaboration with Product and Engineering on scope and priorities. Mentoring junior and semi-senior designers." data-es="Diseño de herramientas internas para la red logística. Responsabilidad end-to-end: research, wireframes, UI en alta fidelidad, prototipado y entrega. Colaboración con Producto e Ingeniería en scope y prioridades. Mentoría a diseñadores junior y semi-senior.">Designing internal tools for the logistics network. End-to-end ownership: research, wireframes, high-fidelity UI, prototyping, and handoff. Close collaboration with Product and Engineering on scope and priorities. Mentoring junior and semi-senior designers.</p>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-year">2017 – 2018</div>
+        <div>
+          <p class="exp-role" data-en="Semi Senior UX Designer" data-es="Diseñador UX Semi Senior">Semi Senior UX Designer</p>
+          <p class="exp-co">Lagash</p>
+          <p class="exp-desc" data-en="Design sprints, user interviews, wireframes, and interactive prototypes. Clients included Banco Nacional de Bolivia and Sancor Seguros." data-es="Design sprints, entrevistas de usuarios, wireframes y prototipos interactivos. Clientes: Banco Nacional de Bolivia y Sancor Seguros.">Design sprints, user interviews, wireframes, and interactive prototypes. Clients included Banco Nacional de Bolivia and Sancor Seguros.</p>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-year">2015 – 2017</div>
+        <div>
+          <p class="exp-role" data-en="Product Designer" data-es="Diseñador de Producto">Product Designer</p>
+          <p class="exp-co">Titular.com</p>
+          <p class="exp-desc" data-en="Led product design end-to-end: wireframing, prototyping, design workshops, and handoff." data-es="Lideré el diseño de producto de punta a punta: wireframing, prototipado, workshops de diseño y entrega.">Led product design end-to-end: wireframing, prototyping, design workshops, and handoff.</p>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-year">2013 – 2015</div>
+        <div>
+          <p class="exp-role" data-en="Graphic Designer" data-es="Diseñador Gráfico">Graphic Designer</p>
+          <p class="exp-co">London Supply</p>
+          <p class="exp-desc" data-en="Visual design, branding, and communication materials." data-es="Diseño visual, branding y materiales de comunicación.">Visual design, branding, and communication materials.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <p class="section-label" data-en="Contact" data-es="Contacto">Contact</p>
+    <div class="contact-wrap">
+      <div>
+        <h2 class="contact-head" data-en="Let's work<br><em>together</em>" data-es="Trabajemos<br><em>juntos</em>">Let's work<br><em>together</em></h2>
+        <p class="contact-sub" data-en="Open to new opportunities, freelance projects, and conversations about design." data-es="Abierto a nuevas oportunidades, proyectos freelance y conversaciones sobre diseño.">Open to new opportunities, freelance projects, and conversations about design.</p>
+      </div>
+      <div class="contact-links">
+        <a href="mailto:hernanmkruk@gmail.com" class="contact-link">
+          <div>
+            <div class="contact-link-type">Email</div>
+            <div class="contact-link-val">hernanmkruk@gmail.com</div>
+          </div>
+          <span class="contact-arrow">↗</span>
+        </a>
+        <a href="https://www.linkedin.com/in/hernan-kruk" target="_blank" class="contact-link">
+          <div>
+            <div class="contact-link-type">LinkedIn</div>
+            <div class="contact-link-val">linkedin.com/in/hernan-kruk</div>
+          </div>
+          <span class="contact-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+<footer>
+  <p>Hernán Kruk · Senior UX Designer</p>
+  <p>Buenos Aires, Argentina · 2025</p>
+</footer>
+</div>
+
+<!-- CASE: DASHBOARD TOOL -->
+<div id="case-dashboard" class="page">
+<main>
+  <div class="case-page" style="display:block">
+    <a class="case-back" onclick="showHome(event)">← <span data-en="Back to portfolio" data-es="Volver al portfolio">Back to portfolio</span></a>
+    <div class="case-header">
+      <div class="case-header-meta">
+        <span class="tag tag-accent">Mercado Libre</span>
+        <span class="tag" data-en="Internal tooling" data-es="Herramienta interna">Internal tooling</span>
+        <span class="tag" data-en="Data visualization" data-es="Visualización de datos">Data visualization</span>
+      </div>
+      <h1 class="case-header-title">Dashboard<br><em>Tool</em></h1>
+      <p class="case-header-desc" data-en="A dashboard giving logistics supervisors real-time visibility into package flow — replacing manual spreadsheets and reducing package loss by 8% in the first quarter." data-es="Un dashboard que le dio a los supervisores de logística visibilidad en tiempo real sobre el flujo de paquetes — reemplazando planillas manuales y reduciendo la pérdida de paquetes un 8% en el primer trimestre.">A dashboard giving logistics supervisors real-time visibility into package flow — replacing manual spreadsheets and reducing package loss by 8% in the first quarter.</p>
+      <div class="case-meta-grid">
+        <div><div class="case-meta-label" data-en="Role" data-es="Rol">Role</div><div class="case-meta-val" data-en="Senior UX Designer" data-es="Diseñador UX Senior">Senior UX Designer</div></div>
+        <div><div class="case-meta-label" data-en="Timeline" data-es="Duración">Timeline</div><div class="case-meta-val" data-en="3 months" data-es="3 meses">3 months</div></div>
+        <div><div class="case-meta-label" data-en="Users" data-es="Usuarios">Users</div><div class="case-meta-val" data-en="Floor supervisors & team leads" data-es="Supervisores y líderes de equipo">Floor supervisors & team leads</div></div>
+      </div>
+    </div>
+    <div class="case-hero-img"><span data-en="Hero image — Dashboard overview" data-es="Imagen principal — Vista general del dashboard">Hero image — Dashboard overview</span></div>
+    <div class="case-body">
+      <div>
+        <div class="case-section">
+          <h3 data-en="The problem" data-es="El problema">The problem</h3>
+          <p data-en="The return-to-station process had a visibility gap. Operators could log received packages, but had no way to see what happened next. KPIs were tracked in offline spreadsheets — updated manually, always out of date, and impossible to act on in real time." data-es="El proceso de retorno a estación tenía un problema de visibilidad. Los operadores podían registrar paquetes recibidos, pero no tenían forma de ver qué pasaba después. Los KPIs se registraban en planillas offline — actualizadas manualmente, siempre desactualizadas, imposibles de usar en tiempo real.">The return-to-station process had a visibility gap. Operators could log received packages, but had no way to see what happened next. KPIs were tracked in offline spreadsheets — updated manually, always out of date, and impossible to act on in real time.</p>
+          <p data-en="When packages went missing, there was no way to trace where things had gone wrong. Loss went undetected, and decisions were made on stale data." data-es="Cuando los paquetes se perdían, no había forma de rastrear dónde había fallado el proceso. Las pérdidas pasaban desapercibidas y las decisiones se tomaban con datos desactualizados.">When packages went missing, there was no way to trace where things had gone wrong. Loss went undetected, and decisions were made on stale data.</p>
+        </div>
+        <div class="case-section">
+          <h3 data-en="Understanding the flow" data-es="Entendiendo el flujo">Understanding the flow</h3>
+          <p data-en="The hardest part wasn't the interface — it was understanding the process. Return-to-station involves multiple handoff points, edge cases, and exception states that aren't obvious until you spend time with the people running it." data-es="Lo más difícil no fue la interfaz — fue entender el proceso. El retorno a estación involucra múltiples puntos de transferencia, casos borde y estados de excepción que no son evidentes hasta que pasás tiempo con las personas que lo operan.">The hardest part wasn't the interface — it was understanding the process. Return-to-station involves multiple handoff points, edge cases, and exception states that aren't obvious until you spend time with the people running it.</p>
+          <p data-en="We mapped the full flow and ran discovery sessions with supervisors and team leads to understand what information they actually needed to make decisions during a shift — and what was just noise." data-es="Mapeamos el flujo completo y realizamos sesiones de discovery con supervisores y líderes para entender qué información realmente necesitaban para tomar decisiones durante su turno — y qué era ruido.">We mapped the full flow and ran discovery sessions with supervisors and team leads to understand what information they actually needed to make decisions during a shift — and what was just noise.</p>
+          <div class="case-img"><span data-en="Process flow — return-to-station mapping" data-es="Mapa de proceso — retorno a estación">Process flow — return-to-station mapping</span></div>
+        </div>
+        <div class="case-section">
+          <h3 data-en="Key design decisions" data-es="Decisiones de diseño clave">Key design decisions</h3>
+          <p data-en="Testing revealed that exception states needed to be immediately scannable. When alerts were buried in tables, operators missed them under pressure. We moved toward a card-based layout for critical metrics, with clear visual weight for anything that needed action." data-es="Las pruebas revelaron que los estados de excepción debían ser inmediatamente escaneables. Cuando las alertas estaban dentro de tablas, los operadores las pasaban por alto bajo presión. Adoptamos un layout basado en cards para las métricas críticas, con jerarquía visual clara para lo que requería acción.">Testing revealed that exception states needed to be immediately scannable. When alerts were buried in tables, operators missed them under pressure. We moved toward a card-based layout for critical metrics, with clear visual weight for anything that needed action.</p>
+          <p data-en="The goal was a dashboard you could read in under ten seconds — then drill down only when something needed investigation." data-es="El objetivo era un dashboard que pudieras leer en menos de diez segundos, y profundizar solo cuando algo requería investigación.">The goal was a dashboard you could read in under ten seconds — then drill down only when something needed investigation.</p>
+          <div class="case-img"><span data-en="Wireframes — layout exploration" data-es="Wireframes — exploración de layout">Wireframes — layout exploration</span></div>
+          <div class="case-img"><span data-en="High-fidelity mockups — final design" data-es="Mockups en alta fidelidad — diseño final">High-fidelity mockups — final design</span></div>
+        </div>
+        <div class="case-section">
+          <h3 data-en="Outcome" data-es="Resultado">Outcome</h3>
+          <p data-en="The tool shipped after 3 months and replaced offline tracking entirely. Supervisors gained a live view of package status and daily KPIs for the first time. The team ran minimal iterations post-launch — the core model held up well." data-es="La herramienta se lanzó a los 3 meses y reemplazó completamente el seguimiento offline. Los supervisores tuvieron por primera vez una vista en vivo del estado de los paquetes y los KPIs diarios. El equipo realizó iteraciones mínimas post-lanzamiento — el modelo central funcionó bien.">The tool shipped after 3 months and replaced offline tracking entirely. Supervisors gained a live view of package status and daily KPIs for the first time. The team ran minimal iterations post-launch — the core model held up well.</p>
+          <div class="case-result">
+            <div class="case-result-label" data-en="Results" data-es="Resultados">Results</div>
+            <ul class="case-result-list">
+              <li data-en="8% reduction in package loss in Q1 of use" data-es="8% de reducción en pérdida de paquetes en el primer trimestre">8% reduction in package loss in Q1 of use</li>
+              <li data-en="Replaced manual spreadsheet tracking entirely" data-es="Reemplazó completamente el seguimiento en planillas manuales">Replaced manual spreadsheet tracking entirely</li>
+              <li data-en="First measurable traceability for the return-to-station team" data-es="Primera trazabilidad medible para el equipo de retorno a estación">First measurable traceability for the return-to-station team</li>
+            </ul>
+          </div>
+        </div>
+        <div class="case-next">
+          <div>
+            <div class="case-next-label" data-en="Next case study" data-es="Siguiente caso">Next case study</div>
+            <div class="case-next-title" onclick="showCase(event,'case-handshake')">Handshake →</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="case-sidebar-block">
+          <div class="case-sidebar-label" data-en="Methods" data-es="Métodos">Methods</div>
+          <ul class="case-sidebar-list">
+            <li data-en="Discovery interviews" data-es="Entrevistas de discovery">Discovery interviews</li>
+            <li data-en="Process mapping" data-es="Mapeo de procesos">Process mapping</li>
+            <li data-en="Wireframing" data-es="Wireframing">Wireframing</li>
+            <li data-en="Usability testing" data-es="Testing de usabilidad">Usability testing</li>
+            <li data-en="High-fi prototyping" data-es="Prototipado en alta fidelidad">High-fi prototyping</li>
+          </ul>
+        </div>
+        <div class="case-sidebar-block">
+          <div class="case-sidebar-label" data-en="Tools" data-es="Herramientas">Tools</div>
+          <ul class="case-sidebar-list">
+            <li>Figma</li>
+            <li>FigJam</li>
+            <li>Maze</li>
+          </ul>
+        </div>
+        <div class="case-sidebar-block">
+          <div class="case-sidebar-label" data-en="Deliverables" data-es="Entregables">Deliverables</div>
+          <ul class="case-sidebar-list">
+            <li data-en="Flow diagrams" data-es="Diagramas de flujo">Flow diagrams</li>
+            <li data-en="Wireframe set" data-es="Set de wireframes">Wireframe set</li>
+            <li data-en="High-fi mockups" data-es="Mockups en alta fidelidad">High-fi mockups</li>
+            <li data-en="Dev handoff" data-es="Entrega a desarrollo">Dev handoff</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<footer><p>Hernán Kruk · Senior UX Designer</p><p>Buenos Aires, Argentina · 2025</p></footer>
+</div>
+
+<!-- CASE: HANDSHAKE -->
+<div id="case-handshake" class="page">
+<main>
+  <div class="case-page" style="display:block">
+    <a class="case-back" onclick="showHome(event)">← <span data-en="Back to portfolio" data-es="Volver al portfolio">Back to portfolio</span></a>
+    <div class="case-header">
+      <div class="case-header-meta">
+        <span class="tag tag-accent">Mercado Libre</span>
+        <span class="tag">Mobile</span>
+        <span class="tag" data-en="Workflow design" data-es="Diseño de flujo">Workflow design</span>
+      </div>
+      <h1 class="case-header-title">Hand<em>shake</em></h1>
+      <p class="case-header-desc" data-en="Replacing paper-based package handovers with a mobile-first digital flow — adopted by over 1,000 operators across the network." data-es="Reemplazando las transferencias de paquetes en papel por un flujo digital mobile — adoptado por más de 1.000 operadores en toda la red.">Replacing paper-based package handovers with a mobile-first digital flow — adopted by over 1,000 operators across the network.</p>
+      <div class="case-meta-grid">
+        <div><div class="case-meta-label" data-en="Role" data-es="Rol">Role</div><div class="case-meta-val" data-en="Senior UX Designer" data-es="Diseñador UX Senior">Senior UX Designer</div></div>
+        <div><div class="case-meta-label" data-en="Timeline" data-es="Duración">Timeline</div><div class="case-meta-val" data-en="3 months" data-es="3 meses">3 months</div></div>
+        <div><div class="case-meta-label" data-en="Scale" data-es="Escala">Scale</div><div class="case-meta-val" data-en="1,000+ operators" data-es="Más de 1.000 operadores">1,000+ operators</div></div>
+      </div>
+    </div>
+    <div class="case-hero-img"><span data-en="Hero image — Handshake mobile flow" data-es="Imagen principal — Flujo mobile de Handshake">Hero image — Handshake mobile flow</span></div>
+    <div class="case-body">
+      <div>
+        <div class="case-section">
+          <h3 data-en="The problem" data-es="El problema">The problem</h3>
+          <p data-en="Every package transfer between operators required both parties to sign a paper form. The system worked until it didn't — forms got lost, signatures were illegible, and when a package went missing there was no reliable record to trace. It created disputes instead of resolving them." data-es="Cada transferencia de paquetes entre operadores requería que ambas partes firmaran un formulario en papel. El sistema funcionaba hasta que no funcionaba — los formularios se perdían, las firmas eran ilegibles, y cuando un paquete desaparecía no había registro confiable para rastrear. Generaba conflictos en lugar de resolverlos.">Every package transfer between operators required both parties to sign a paper form. The system worked until it didn't — forms got lost, signatures were illegible, and when a package went missing there was no reliable record to trace. It created disputes instead of resolving them.</p>
+        </div>
+        <div class="case-section">
+          <h3 data-en="Designing for real conditions" data-es="Diseñar para condiciones reales">Designing for real conditions</h3>
+          <p data-en="This tool would be used by operators in physical locations — on mobile, under time pressure, with limited tolerance for friction. That context shaped every decision." data-es="Esta herramienta sería usada por operadores en locales físicos — en mobile, bajo presión de tiempo, con baja tolerancia al roce. Ese contexto definió cada decisión.">This tool would be used by operators in physical locations — on mobile, under time pressure, with limited tolerance for friction. That context shaped every decision.</p>
+          <p data-en="We tested several confirmation patterns. The key finding: any step that required manual input — typing, selecting, confirming with a tap — created drop-off. We stripped the flow down to scan or QR only. No manual input, no confirmation screens. The accountability record is created automatically at the moment of transfer." data-es="Probamos varios patrones de confirmación. El hallazgo clave: cualquier paso que requería input manual — escribir, seleccionar, confirmar con un tap — generaba abandono. Redujimos el flujo a solo escaneo o QR. Sin input manual, sin pantallas de confirmación. El registro de responsabilidad se genera automáticamente en el momento de la transferencia.">We tested several confirmation patterns. The key finding: any step that required manual input — typing, selecting, confirming with a tap — created drop-off. We stripped the flow down to scan or QR only. No manual input, no confirmation screens. The accountability record is created automatically at the moment of transfer.</p>
+          <div class="case-img"><span data-en="Flow iteration — friction reduction" data-es="Iteración de flujo — reducción de fricción">Flow iteration — friction reduction</span></div>
+        </div>
+        <div class="case-section">
+          <h3 data-en="Scope decisions" data-es="Decisiones de alcance">Scope decisions</h3>
+          <p data-en="Defining the MVP was a significant part of the work. Several features — dispute resolution tools, history views, edge case handling — were identified early but deliberately left for v2. Getting the core transfer flow right and ensuring adoption was the priority for launch." data-es="Definir el MVP fue una parte importante del trabajo. Varias funcionalidades — herramientas de resolución de conflictos, vistas de historial, manejo de casos borde — se identificaron temprano pero se dejaron deliberadamente para la v2. La prioridad del lanzamiento era que el flujo de transferencia central funcionara bien y que la adopción fuera real.">Defining the MVP was a significant part of the work. Several features — dispute resolution tools, history views, edge case handling — were identified early but deliberately left for v2. Getting the core transfer flow right and ensuring adoption was the priority for launch.</p>
+          <div class="case-img"><span data-en="MVP scope map — what's in, what's v2" data-es="Mapa de alcance MVP — qué entra, qué es v2">MVP scope map — what's in, what's v2</span></div>
+        </div>
+        <div class="case-section">
+          <h3 data-en="Outcome" data-es="Resultado">Outcome</h3>
+          <p data-en="The tool launched 3 months after kickoff across all place-type locations. There was initial resistance — operators weren't used to a digital process — but adoption grew steadily." data-es="La herramienta se lanzó 3 meses después del inicio en todos los locales tipo 'place'. Hubo resistencia inicial — los operadores no estaban acostumbrados a un proceso digital — pero la adopción creció de forma constante.">The tool launched 3 months after kickoff across all place-type locations. There was initial resistance — operators weren't used to a digital process — but adoption grew steadily.</p>
+          <div class="case-result">
+            <div class="case-result-label" data-en="Results" data-es="Resultados">Results</div>
+            <ul class="case-result-list">
+              <li data-en="70% positive adoption measured through on-site surveys" data-es="70% de adopción positiva medida con encuestas en el lugar">70% positive adoption measured through on-site surveys</li>
+              <li data-en="1,000+ operators onboarded across the network" data-es="Más de 1.000 operadores incorporados en toda la red">1,000+ operators onboarded across the network</li>
+              <li data-en="Paper forms eliminated — chain of custody now fully digital" data-es="Formularios en papel eliminados — la cadena de custodia es ahora 100% digital">Paper forms eliminated — chain of custody now fully digital</li>
+            </ul>
+          </div>
+        </div>
+        <div class="case-next">
+          <div>
+            <div class="case-next-label" data-en="Next case study" data-es="Siguiente caso">Next case study</div>
+            <div class="case-next-title" onclick="showCase(event,'case-monitor')">Monitor Last Mile →</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="case-sidebar-block">
+          <div class="case-sidebar-label" data-en="Methods" data-es="Métodos">Methods</div>
+          <ul class="case-sidebar-list">
+            <li data-en="Field observation" data-es="Observación en campo">Field observation</li>
+            <li data-en="Flow mapping" data-es="Mapeo de flujo">Flow mapping</li>
+            <li data-en="Prototype testing" data-es="Testing de prototipo">Prototype testing</li>
+            <li data-en="Friction analysis" data-es="Análisis de fricción">Friction analysis</li>
+            <li data-en="MVP scoping" data-es="Definición de MVP">MVP scoping</li>
+          </ul>
+        </div>
+        <div class="case-sidebar-block">
+          <div class="case-sidebar-label" data-en="Tools" data-es="Herramientas">Tools</div>
+          <ul class="case-sidebar-list">
+            <li>Figma</li>
+            <li>FigJam</li>
+          </ul>
+        </div>
+        <div class="case-sidebar-block">
+          <div class="case-sidebar-label" data-en="Platform" data-es="Plataforma">Platform</div>
+          <ul class="case-sidebar-list">
+            <li>Mobile-first</li>
+            <li data-en="Internal network tool" data-es="Herramienta interna de red">Internal network tool</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<footer><p>Hernán Kruk · Senior UX Designer</p><p>Buenos Aires, Argentina · 2025</p></footer>
+</div>
+
+<!-- CASE: MONITOR LAST MILE -->
+<div id="case-monitor" class="page">
+<main>
+  <div class="case-page" style="display:block">
+    <a class="case-back" onclick="showHome(event)">← <span data-en="Back to portfolio" data-es="Volver al portfolio">Back to portfolio</span></a>
+    <div class="case-header">
+      <div class="case-header-meta">
+        <span class="tag tag-accent">Mercado Libre</span>
+        <span class="tag">Dashboard</span>
+        <span class="tag" data-en="Consolidation" data-es="Consolidación">Consolidation</span>
+      </div>
+      <h1 class="case-header-title">Monitor<br><em>Last Mile</em></h1>
+      <p class="case-header-desc" data-en="Consolidating 2–3 internal tools and spreadsheets into a single live monitor — reducing operational oversight time by 30–40%." data-es="Consolidar 2 o 3 herramientas internas y planillas en un único monitor en vivo — reduciendo el tiempo de supervisión operativa entre un 30% y un 40%.">Consolidating 2–3 internal tools and spreadsheets into a single live monitor — reducing operational oversight time by 30–40%.</p>
+      <div class="case-meta-grid">
+        <div><div class="case-meta-label" data-en="Role" data-es="Rol">Role</div><div class="case-meta-val" data-en="Senior UX Designer" data-es="Diseñador UX Senior">Senior UX Designer</div></div>
+        <div><div class="case-meta-label" data-en="Stakeholders" data-es="Stakeholders">Stakeholders</div><div class="case-meta-val" data-en="Managers & floor leads" data-es="Managers y líderes de piso">Managers & floor leads</div></div>
+        <div><div class="case-meta-label" data-en="Context" data-es="Contexto">Context</div><div class="case-meta-val">Mercado Libre Logistics</div></div>
+      </div>
+    </div>
+    <div class="case-hero-img"><span data-en="Hero image — Monitor Last Mile" data-es="Imagen principal — Monitor Last Mile">Hero image — Monitor Last Mile</span></div>
+    <div class="case-body">
+      <div>
+        <div class="case-section">
+          <h3 data-en="The problem" data-es="El problema">The problem</h3>
+          <p data-en="Last Mile leaders were managing operations across multiple internal tools and spreadsheets at the same time — literally several screens open at once. Building a picture of what was happening required manually cross-referencing data that was never in sync." data-es="Los líderes de Last Mile gestionaban la operación con varias herramientas internas y planillas abiertas al mismo tiempo — literalmente varias pantallas en simultáneo. Para entender qué estaba pasando había que cruzar datos manualmente que nunca estaban sincronizados.">Last Mile leaders were managing operations across multiple internal tools and spreadsheets at the same time — literally several screens open at once. Building a picture of what was happening required manually cross-referencing data that was never in sync.</p>
+          <p data-en="This project had demand from two directions: managers needed traceability and a reliable source of truth; floor leads needed something live they could act on during the shift. The challenge was designing for both without creating a tool that tried to do too much." data-es="Este proyecto tenía demanda desde dos lados: los managers necesitaban trazabilidad y una fuente de verdad confiable; los líderes de piso necesitaban algo en vivo para actuar durante el turno. El desafío fue diseñar para ambos sin crear una herramienta que intentara hacer demasiado.">This project had demand from two directions: managers needed traceability and a reliable source of truth; floor leads needed something live they could act on during the shift. The challenge was designing for both without creating a tool that tried to do too much.</p>
+        </div>
+        <div class="case-section">
+          <h3 data-en="Consolidation strategy" data-es="Estrategia de consolidación">Consolidation strategy</h3>
+          <p data-en="We audited every tool in use and mapped which tasks were being performed in each. The goal wasn't to merge everything into one screen — it was to identify what could be unified without creating information overload, and what belonged in a separate context." data-es="Auditamos cada herramienta en uso y mapeamos qué tareas se realizaban en cada una. El objetivo no era fusionar todo en una pantalla — era identificar qué podía unificarse sin generar sobrecarga de información, y qué correspondía a un contexto separado.">We audited every tool in use and mapped which tasks were being performed in each. The goal wasn't to merge everything into one screen — it was to identify what could be unified without creating information overload, and what belonged in a separate context.</p>
+          <div class="case-img"><span data-en="Tool audit — consolidation mapping" data-es="Auditoría de herramientas — mapa de consolidación">Tool audit — consolidation mapping</span></div>
+          <p data-en="Progressive disclosure became the core pattern: the top level answers the most common questions at a glance, with drill-down available when something needs investigation." data-es="La divulgación progresiva fue el patrón central: el nivel superior responde las preguntas más frecuentes de un vistazo, con la posibilidad de profundizar cuando algo requiere investigación.">Progressive disclosure became the core pattern: the top level answers the most common questions at a glance, with drill-down available when something needs investigation.</p>
+          <div class="case-img"><span data-en="Final design — unified monitor view" data-es="Diseño final — vista unificada del monitor">Final design — unified monitor view</span></div>
+        </div>
+        <div class="case-section">
+          <h3 data-en="Outcome" data-es="Resultado">Outcome</h3>
+          <p data-en="The MVP replaced the multi-screen setup that leaders had been relying on. Managers got the traceability they needed; floor leads got a single live view to manage the shift." data-es="El MVP reemplazó el setup de múltiples pantallas que los líderes usaban. Los managers obtuvieron la trazabilidad que necesitaban; los líderes de piso obtuvieron una vista en vivo para gestionar el turno.">The MVP replaced the multi-screen setup that leaders had been relying on. Managers got the traceability they needed; floor leads got a single live view to manage the shift.</p>
+          <div class="case-result">
+            <div class="case-result-label" data-en="Results" data-es="Resultados">Results</div>
+            <ul class="case-result-list">
+              <li data-en="30–40% reduction in operational oversight time" data-es="30-40% de reducción en el tiempo de supervisión operativa">30–40% reduction in operational oversight time</li>
+              <li data-en="2–3 tools and spreadsheets replaced by one view" data-es="2 o 3 herramientas y planillas reemplazadas por una sola vista">2–3 tools and spreadsheets replaced by one view</li>
+              <li data-en="Single source of truth for both managers and floor leads" data-es="Fuente única de verdad para managers y líderes de piso">Single source of truth for both managers and floor leads</li>
+            </ul>
+          </div>
+        </div>
+        <div class="case-next">
+          <div>
+            <div class="case-next-label" data-en="Next case study" data-es="Siguiente caso">Next case study</div>
+            <div class="case-next-title" onclick="showCase(event,'case-fury')">Fury →</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="case-sidebar-block">
+          <div class="case-sidebar-label" data-en="Methods" data-es="Métodos">Methods</div>
+          <ul class="case-sidebar-list">
+            <li data-en="Tool audit" data-es="Auditoría de herramientas">Tool audit</li>
+            <li data-en="Stakeholder interviews" data-es="Entrevistas con stakeholders">Stakeholder interviews</li>
+            <li data-en="Task analysis" data-es="Análisis de tareas">Task analysis</li>
+            <li data-en="Wireframing" data-es="Wireframing">Wireframing</li>
+            <li data-en="Usability testing" data-es="Testing de usabilidad">Usability testing</li>
+          </ul>
+        </div>
+        <div class="case-sidebar-block">
+          <div class="case-sidebar-label" data-en="Tools" data-es="Herramientas">Tools</div>
+          <ul class="case-sidebar-list">
+            <li>Figma</li>
+            <li>FigJam</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<footer><p>Hernán Kruk · Senior UX Designer</p><p>Buenos Aires, Argentina · 2025</p></footer>
+</div>
+
+<!-- CASE: FURY -->
+<div id="case-fury" class="page">
+<main>
+  <div class="case-page" style="display:block">
+    <a class="case-back" onclick="showHome(event)">← <span data-en="Back to portfolio" data-es="Volver al portfolio">Back to portfolio</span></a>
+    <div class="case-header">
+      <div class="case-header-meta">
+        <span class="tag tag-accent">Mercado Libre</span>
+        <span class="tag" data-en="Ongoing" data-es="En curso">Ongoing</span>
+        <span class="tag" data-en="Design systems" data-es="Sistema de diseño">Design systems</span>
+        <span class="tag" data-en="Developer tooling" data-es="Herramienta para devs">Developer tooling</span>
+      </div>
+      <h1 class="case-header-title"><em>Fury</em></h1>
+      <p class="case-header-desc" data-en="Mercado Libre's internal developer platform — where all applications are built, deployed, and managed. I joined the team to lead the UX restructuring of a tool that had never had a dedicated design resource." data-es="La plataforma interna de desarrollo de Mercado Libre — donde se construyen, despliegan y gestionan todas las aplicaciones. Me sumé al equipo para liderar la reestructuración de UX de una herramienta que nunca tuvo un recurso de diseño dedicado.">Mercado Libre's internal developer platform — where all applications are built, deployed, and managed. I joined the team to lead the UX restructuring of a tool that had never had a dedicated design resource.</p>
+      <div class="case-meta-grid">
+        <div><div class="case-meta-label" data-en="Role" data-es="Rol">Role</div><div class="case-meta-val" data-en="Senior UX Designer" data-es="Diseñador UX Senior">Senior UX Designer</div></div>
+        <div><div class="case-meta-label" data-en="Status" data-es="Estado">Status</div><div class="case-meta-val" data-en="Ongoing — 2024–present" data-es="En curso — 2024–actualidad">Ongoing — 2024–present</div></div>
+        <div><div class="case-meta-label" data-en="Users" data-es="Usuarios">Users</div><div class="case-meta-val" data-en="Developers + expanding to new roles" data-es="Developers + expansión a nuevos roles">Developers + expanding to new roles</div></div>
+      </div>
+    </div>
+
+    <div class="case-hero-img"><span data-en="Hero image — Fury platform overview" data-es="Imagen principal — Vista general de Fury">Hero image — Fury platform overview</span></div>
+
+    <div class="case-body">
+      <div>
+        <div class="case-section">
+          <h3 data-en="The context" data-es="El contexto">The context</h3>
+          <p data-en="Fury had been running for years without a UX team. The result was what you'd expect: inconsistent patterns across sections, no use of Mercado Libre's Andes design system, navigation that had grown organically without a clear structure, and flows that worked — but only if you already knew how they worked." data-es="Fury venía funcionando por años sin un equipo de UX. El resultado era el esperado: patrones inconsistentes entre secciones, sin uso del sistema de diseño Andes de Mercado Libre, navegación que creció de forma orgánica sin estructura clara, y flujos que funcionaban — pero solo si ya sabías cómo funcionaban.">Fury had been running for years without a UX team. The result was what you'd expect: inconsistent patterns across sections, no use of Mercado Libre's Andes design system, navigation that had grown organically without a clear structure, and flows that worked — but only if you already knew how they worked.</p>
+          <p data-en="The platform is also expanding beyond its original audience — from developers only to other internal roles like HR — which means the UX debt that was tolerated by power users needs to be addressed before it scales to a broader audience." data-es="La plataforma también se está expandiendo más allá de su audiencia original — de solo developers a otros roles internos como RRHH — lo que significa que la deuda de UX que los power users toleraban necesita resolverse antes de que escale a una audiencia más amplia.">The platform is also expanding beyond its original audience — from developers only to other internal roles like HR — which means the UX debt that was tolerated by power users needs to be addressed before it scales to a broader audience.</p>
+        </div>
+
+        <div class="case-section">
+          <h3 data-en="What we're working on" data-es="En qué estamos trabajando">What we're working on</h3>
+          <p data-en="The work covers several parallel tracks: auditing and redesigning key sections (Traffics, Segments, Apps, a new Home), migrating UI components to Andes, and improving navigation consistency across the platform." data-es="El trabajo abarca varias líneas en paralelo: auditar y rediseñar secciones clave (Traffics, Segmentos, Apps, una nueva Home), migrar componentes de UI a Andes, y mejorar la consistencia de navegación en toda la plataforma.">The work covers several parallel tracks: auditing and redesigning key sections (Traffics, Segments, Apps, a new Home), migrating UI components to Andes, and improving navigation consistency across the platform.</p>
+          <p data-en="The starting point for each section is the same: map the current flow, evaluate it against Nielsen's heuristics and Andes patterns, identify improvement opportunities, and prioritize with the team." data-es="El punto de partida para cada sección es el mismo: mapear el flujo actual, evaluarlo contra las heurísticas de Nielsen y los patrones de Andes, identificar oportunidades de mejora y priorizar con el equipo.">The starting point for each section is the same: map the current flow, evaluate it against Nielsen's heuristics and Andes patterns, identify improvement opportunities, and prioritize with the team.</p>
+          <div class="case-img"><span data-en="Flow audit — current state mapping" data-es="Auditoría de flujo — mapeo del estado actual">Flow audit — current state mapping</span></div>
+        </div>
+
+        <div class="case-section">
+          <h3 data-en="How we work" data-es="Cómo trabajamos">How we work</h3>
+          <p data-en="One thing I've been doing differently on this project is using AI tooling to move faster and stay closer to engineering. I use Figma's MCP to generate design specs automatically, then push those files directly to GitHub for the dev team. It shortens the handoff loop considerably." data-es="Una cosa que estoy haciendo de forma diferente en este proyecto es usar herramientas de IA para avanzar más rápido y estar más cerca de ingeniería. Uso el MCP de Figma para generar specs de diseño automáticamente, y luego paso esos archivos directamente a GitHub para el equipo de desarrollo. Acorta bastante el ciclo de entrega.">One thing I've been doing differently on this project is using AI tooling to move faster and stay closer to engineering. I use Figma's MCP to generate design specs automatically, then push those files directly to GitHub for the dev team. It shortens the handoff loop considerably.</p>
+          <p data-en="I also use Claude to structure UX audits — comparing current flows against the Andes component library and Nielsen's heuristics to surface specific, actionable improvement points. It's not about automating the design work; it's about making the analysis and documentation part faster so there's more time for the actual decisions." data-es="También uso Claude para estructurar auditorías de UX — comparando flujos actuales contra la librería de componentes de Andes y las heurísticas de Nielsen para identificar puntos de mejora concretos y accionables. No se trata de automatizar el trabajo de diseño; se trata de hacer más rápida la parte de análisis y documentación para tener más tiempo para las decisiones reales.">I also use Claude to structure UX audits — comparing current flows against the Andes component library and Nielsen's heuristics to surface specific, actionable improvement points. It's not about automating the design work; it's about making the analysis and documentation part faster so there's more time for the actual decisions.</p>
+          <div class="case-img"><span data-en="Figma MCP → GitHub handoff workflow" data-es="Flujo Figma MCP → GitHub">Figma MCP → GitHub handoff workflow</span></div>
+        </div>
+
+        <div class="case-section">
+          <h3 data-en="Early results" data-es="Primeros resultados">Early results</h3>
+          <p data-en="The project is ongoing, but some flows have already shipped. The most significant result so far came from a redesign of the demo app creation flow." data-es="El proyecto está en curso, pero algunos flujos ya se lanzaron. El resultado más significativo hasta ahora vino del rediseño del flujo de creación de apps demo.">The project is ongoing, but some flows have already shipped. The most significant result so far came from a redesign of the demo app creation flow.</p>
+          <div class="case-result">
+            <div class="case-result-label" data-en="Demo app flow — post launch" data-es="Flujo de app demo — post lanzamiento">Demo app flow — post launch</div>
+            <ul class="case-result-list">
+              <li data-en="62% reduction in demo app creations — from 452 to 172 in the same period" data-es="62% de reducción en la creación de apps demo — de 452 a 172 en el mismo período">62% reduction in demo app creations — from 452 to 172 in the same period</li>
+              <li data-en="Indicates users are now creating production apps correctly instead of relying on demo workarounds" data-es="Indica que los usuarios ahora crean apps de producción correctamente en lugar de usar apps demo como workaround">Indicates users are now creating production apps correctly instead of relying on demo workarounds</li>
+            </ul>
+          </div>
+          <p style="margin-top:1.25rem" data-en="More sections are in progress. This case study will be updated as the work evolves." data-es="Hay más secciones en progreso. Este caso se actualizará a medida que avance el trabajo.">More sections are in progress. This case study will be updated as the work evolves.</p>
+        </div>
+
+        <div class="case-next">
+          <div>
+            <div class="case-next-label" data-en="Back to work" data-es="Volver a proyectos">Back to work</div>
+            <div class="case-next-title" onclick="showHome(event)" data-en="View all case studies →" data-es="Ver todos los proyectos →">View all case studies →</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="case-sidebar-block">
+          <div class="case-sidebar-label" data-en="Focus areas" data-es="Áreas de foco">Focus areas</div>
+          <ul class="case-sidebar-list">
+            <li data-en="UX audit & heuristic analysis" data-es="Auditoría UX y análisis heurístico">UX audit & heuristic analysis</li>
+            <li data-en="Design system migration (Andes)" data-es="Migración al sistema de diseño (Andes)">Design system migration (Andes)</li>
+            <li data-en="Navigation restructuring" data-es="Reestructuración de navegación">Navigation restructuring</li>
+            <li data-en="Flow redesign" data-es="Rediseño de flujos">Flow redesign</li>
+            <li data-en="IT rollout follow-up" data-es="Seguimiento de rollouts con IT">IT rollout follow-up</li>
+          </ul>
+        </div>
+        <div class="case-sidebar-block">
+          <div class="case-sidebar-label" data-en="Tools" data-es="Herramientas">Tools</div>
+          <ul class="case-sidebar-list">
+            <li>Figma + MCP</li>
+            <li>Claude</li>
+            <li>GitHub</li>
+            <li>FigJam</li>
+          </ul>
+        </div>
+        <div class="case-sidebar-block">
+          <div class="case-sidebar-label" data-en="Users" data-es="Usuarios">Users</div>
+          <ul class="case-sidebar-list">
+            <li data-en="Internal developers" data-es="Developers internos">Internal developers</li>
+            <li data-en="Expanding to new roles" data-es="Expansión a nuevos roles">Expanding to new roles</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<footer><p>Hernán Kruk · Senior UX Designer</p><p>Buenos Aires, Argentina · 2025</p></footer>
+</div>
+
+<script>
+let currentLang = 'en';
+
+function setLang(lang) {
+  currentLang = lang;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
+  document.querySelectorAll('[data-en]').forEach(el => {
+    const text = el.getAttribute('data-' + lang);
+    if (text) {
+      if (text.includes('<')) el.innerHTML = text;
+      else el.textContent = text;
+    }
+  });
+  document.documentElement.lang = lang;
+}
+
+function showHome(e) {
+  if (e) e.preventDefault();
+  document.getElementById('home-page').style.display = 'block';
+  document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showCase(e, id) {
+  if (e) e.preventDefault();
+  document.getElementById('home-page').style.display = 'none';
+  document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+  document.getElementById(id).style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
